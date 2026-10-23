@@ -1,72 +1,56 @@
-import Navbar from "@/components/navbar";
-import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { DATA } from "@/data/resume";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { SITE } from "@/data/site";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const fontSans = FontSans({
+const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const fontDisplay = Fraunces({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-display",
+  axes: ["SOFT", "WONK", "opsz"],
 });
+const fontMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
+    default: `${SITE.name} | Product`,
+    template: `%s | ${SITE.name}`,
   },
-  description: DATA.description,
+  description: SITE.description,
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
-    url: DATA.url,
-    siteName: `${DATA.name}`,
+    title: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    siteName: SITE.name,
     locale: "en_US",
     type: "website",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  twitter: {
-    title: `${DATA.name}`,
-    card: "summary_large_image",
-  },
-  verification: {
-    google: "",
-    yandex: "",
-  },
+  twitter: { title: SITE.name, card: "summary_large_image" },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6",
-          fontSans.variable
+          "min-h-screen font-sans antialiased",
+          fontSans.variable,
+          fontDisplay.variable,
+          fontMono.variable,
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <TooltipProvider delayDuration={0}>
-            {children}
-            <Navbar />
-          </TooltipProvider>
-        </ThemeProvider>
+        <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6">
+          <SiteHeader />
+          <main className="flex-1 pb-16">{children}</main>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

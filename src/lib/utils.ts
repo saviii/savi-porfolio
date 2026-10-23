@@ -35,3 +35,19 @@ export function formatDate(date: string) {
     return `${fullDate} (${yearsAgo}y ago)`;
   }
 }
+
+export function shortDate(date: string) {
+  return new Date(date.includes("T") ? date : `${date}T00:00:00`).toLocaleDateString(
+    "en-US",
+    { month: "short", day: "numeric", year: "numeric" },
+  );
+}
+
+export const TILE_COLORS = {
+  butter: "bg-butter",
+  sage: "bg-sage",
+  sky: "bg-sky",
+  lilac: "bg-lilac",
+  tomato: "bg-tomato text-card",
+  card: "bg-card",
+} as const;
