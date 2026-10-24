@@ -35,3 +35,10 @@ export function formatDate(date: string) {
     return `${fullDate} (${yearsAgo}y ago)`;
   }
 }
+
+export function shortDate(date: string) {
+  return new Date(date.includes("T") ? date : `${date}T00:00:00`).toLocaleDateString(
+    "en-US",
+    { month: "short", day: "numeric", year: "numeric" },
+  );
+}
