@@ -5,65 +5,43 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Notes",
-  description: "Short thoughts on products, technology, and trends.",
+  description: "Links worth your time, each with my take.",
 };
 
 export default async function NotesPage() {
   const notes = await getNotes();
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <header className="mb-10 mt-6">
-        <p className="eyebrow">Notes</p>
-        <h1 className="mt-2 font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl">
-          Half-formed <span className="italic text-tomato">thoughts</span>.
-        </h1>
-        <p className="mt-4 text-lg text-foreground/70">
-          Not quite a blog. Quick takes on products, AI, and trends I can&apos;t
-          stop thinking about. Longer essays live on{" "}
-          <a
-            href="https://savi.medium.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline decoration-tomato decoration-2 underline-offset-4"
-          >
-            Medium
-          </a>
-          .
-        </p>
-      </header>
+    <div>
+      <section className="flex flex-col gap-[18px] pb-10 pt-6">
+        <span className="eyebrow">Notes</span>
+        <h1 className="text-[72px] font-semibold leading-[0.9] tracking-[-0.055em] md:text-[124px]">Notes</h1>
+        <p className="max-w-[620px] text-xl leading-normal">Links worth your time, each with my take.</p>
+      </section>
 
-      <ul className="divide-y divide-dashed divide-foreground/20 border-y border-dashed border-foreground/20">
+      <ul className="border-b border-border">
         {notes.map((note) => (
-          <li key={note.slug}>
+          <li key={note.slug} className="border-t border-border">
             <Link
               href={`/notes/${note.slug}`}
-              className="group grid gap-2 py-6 sm:grid-cols-[120px_1fr]"
+              className="group grid grid-cols-1 gap-2.5 py-6 md:grid-cols-[170px_minmax(0,1fr)] md:gap-8"
             >
-              <p className="font-mono text-xs text-foreground/50 sm:pt-2">
-                {shortDate(note.metadata.publishedAt)}
-              </p>
-              <div>
-                <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight transition-colors group-hover:text-tomato">
+              <span className="pt-[5px] font-mono text-[13px]">{shortDate(note.metadata.publishedAt)}</span>
+              <div className="flex flex-col gap-1">
+                <span className="text-xl font-semibold leading-[1.3] tracking-[-0.01em] transition-colors group-hover:text-accent">
                   {note.metadata.title}
-                </h2>
-                {note.metadata.summary && (
-                  <p className="mt-1 text-foreground/70">{note.metadata.summary}</p>
-                )}
-                <div className="mt-3 flex flex-wrap items-center gap-2">
-                  {note.metadata.tags?.map((tag) => (
-                    <span key={tag} className="sticker">
-                      #{tag}
-                    </span>
-                  ))}
-                  <span className="font-mono text-[11px] text-foreground/50">
-                    {note.readingMinutes} min read
-                  </span>
-                </div>
+                </span>
+                {note.metadata.summary && <span className="text-[15px] text-muted-foreground">{note.metadata.summary}</span>}
               </div>
             </Link>
           </li>
         ))}
+        <li className="grid grid-cols-1 gap-2.5 border-t border-dashed border-border py-6 md:grid-cols-[170px_minmax(0,1fr)] md:gap-8">
+          <span className="pt-[5px] font-mono text-[13px] text-muted-foreground">Next</span>
+          <span className="text-xl leading-[1.3] text-muted-foreground">
+            First links coming soon<span className="caret" aria-hidden="true" />
+          </span>
+        </li>
       </ul>
     </div>
   );

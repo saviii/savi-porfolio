@@ -54,7 +54,7 @@ export default async function NotePage({ params }: Props) {
         </h1>
       </header>
       <div
-        className="prose prose-lg prose-neutral max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:decoration-tomato prose-a:decoration-2 prose-a:underline-offset-4 prose-strong:text-foreground"
+        className="prose prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:decoration-tomato prose-a:decoration-2 prose-a:underline-offset-4 prose-strong:text-foreground"
         dangerouslySetInnerHTML={{ __html: note.source }}
       />
       <div className="mt-16 flex items-center gap-4 rounded-[var(--radius)] border border-foreground/10 bg-card p-5">

@@ -1,68 +1,74 @@
-import BlurFade from "@/components/magicui/blur-fade";
-import { WORK } from "@/data/work";
-import { cn, TILE_COLORS } from "@/lib/utils";
+import { SITE } from "@/data/site";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Case studies from a decade of building consumer products.",
+  description: "A decade of consumer products, from startups to platforms with millions of users.",
 };
+
+const TOOLKIT =
+  "LLM evals, prompt design, ranking and personalization, notifications, experimentation. Claude, Cursor, Figma, SQL, Jupyter.";
+
+const ROW = "grid grid-cols-1 gap-2.5 border-t border-border py-6 md:grid-cols-[170px_minmax(0,1fr)_minmax(0,1.6fr)] md:gap-8";
 
 export default function WorkPage() {
   return (
     <div>
-      <header className="mb-10 mt-6 max-w-3xl">
-        <p className="eyebrow">Work</p>
-        <h1 className="mt-2 font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl">
-          Things I&apos;ve helped <span className="italic text-tomato">ship</span>.
-        </h1>
-        <p className="mt-4 text-lg text-foreground/70">
-          A decade of consumer products across news, finance, and mobile. Each
-          one comes down to the problem, what we did, and what happened.
-        </p>
-      </header>
+      <section className="flex flex-wrap items-end justify-between gap-6 pb-10 pt-6">
+        <div className="flex flex-col gap-[18px]">
+          <span className="eyebrow">Work · 2013 – now</span>
+          <h1 className="text-[72px] font-semibold leading-[0.9] tracking-[-0.055em] md:text-[124px]">Work</h1>
+        </div>
+        {SITE.resumeUrl && (
+          <a
+            href={SITE.resumeUrl}
+            download="Savi-Singh-Resume.pdf"
+            className="inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-[22px] text-[15px] font-semibold text-accent-foreground hover:opacity-90"
+          >
+            Download full resume
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+              <path d="M12 4v12M6 11l6 6 6-6M5 20h14" />
+            </svg>
+          </a>
+        )}
+      </section>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {WORK.map((w, i) => (
-          <BlurFade key={w.slug} delay={i * 0.05}>
-            <Link
-              href={`/work/${w.slug}`}
-              className={cn(
-                "tile tile-hover group flex h-full min-h-[280px] flex-col justify-between",
-                TILE_COLORS[w.color],
-              )}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <p className="eyebrow !text-current opacity-70">
-                  {w.company} · {w.years}
-                </p>
-                {w.inProgress && <span className="sticker !text-ink">in progress</span>}
-              </div>
-              <div className="mt-8">
-                {w.metric && (
-                  <p className="font-display text-5xl font-semibold tracking-tight">
-                    {w.metric.value}{" "}
-                    <span className="text-base font-normal opacity-70">
-                      {w.metric.label}
-                    </span>
-                  </p>
-                )}
-                <h2 className="mt-2 font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
-                  {w.title}
-                </h2>
-                <p className="mt-2 opacity-75">{w.blurb}</p>
-                <p className="mt-4 text-sm font-medium">
-                  Read the case study{" "}
-                  <span className="inline-block transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </p>
-              </div>
-            </Link>
-          </BlurFade>
+      <ol className="border-b border-border">
+        {SITE.experience.map((job, i) => (
+          <li key={job.company} className={`group ${ROW}`}>
+            <span className="flex items-center gap-2 pt-[5px] font-mono text-[13px]">
+              {i === 0 && <span className="size-2 animate-pulse rounded-full bg-accent" aria-hidden="true" />}
+              {job.years}
+            </span>
+            <div className="flex flex-col gap-1">
+              <span className="text-xl font-semibold leading-[1.3] tracking-[-0.01em] transition-colors group-hover:text-accent">
+                {job.company}
+              </span>
+              <span className="text-[15px] text-muted-foreground">{job.title}</span>
+            </div>
+            <p className="pt-0.5 text-base leading-[1.45]">{job.line}</p>
+          </li>
         ))}
-      </div>
+      </ol>
+
+      <section className={`${ROW} border-t-0`}>
+        <span className="eyebrow pt-[5px]">Side projects</span>
+        <div className="flex flex-col gap-2.5 md:col-span-2">
+          {SITE.projects.map((p) => (
+            <p key={p.name} className="text-base leading-[1.45]">
+              <a href={p.href} target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-accent">
+                {p.name} ↗
+              </a>{" "}
+              <span className="text-muted-foreground">{p.line}</span>
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section className={ROW}>
+        <span className="eyebrow pt-[5px]">Toolkit</span>
+        <p className="text-base leading-normal md:col-span-2">{TOOLKIT}</p>
+      </section>
     </div>
   );
 }

@@ -1,18 +1,15 @@
+import { DockNav } from "@/components/dock-nav";
 import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { ThemeProvider } from "@/components/theme-provider";
 import { SITE } from "@/data/site";
+import { DEFAULT_MODE, DEFAULT_PALETTE, THEME_INIT_SCRIPT } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Martian_Mono, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const fontDisplay = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  axes: ["SOFT", "WONK", "opsz"],
-});
-const fontMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const fontSans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-sans" });
+const fontMono = Martian_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -37,20 +34,34 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      data-palette={DEFAULT_PALETTE}
+      data-mode={DEFAULT_MODE}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {/* Doto (the dot-matrix display face) isn't in next/font's list for Next 14.
+            The root layout covers every page, so the pages-router warning doesn't apply. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap"
+        />
+      </head>
       <body
-        className={cn(
-          "min-h-screen font-sans antialiased",
-          fontSans.variable,
-          fontDisplay.variable,
-          fontMono.variable,
-        )}
+        className={cn("min-h-screen font-sans antialiased", fontSans.variable, fontMono.variable)}
       >
-        <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6">
-          <SiteHeader />
-          <main className="flex-1 pb-16">{children}</main>
-          <SiteFooter />
-        </div>
+        <ThemeProvider>
+          <div className="mx-auto flex min-h-screen max-w-[1240px] flex-col px-5">
+            <main className="flex-1 pt-14">{children}</main>
+            <SiteFooter />
+          </div>
+          <DockNav />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -5,11 +5,27 @@ export const SITE = {
   firstName: "Savi",
   initials: "SS",
   url: "https://savi-portfolio.vercel.app",
-  role: "Senior Product Manager",
+  role: "Principal Product Manager",
   company: "Yahoo Finance",
   location: "San Francisco, CA",
   email: "savipablas@gmail.com",
   avatarUrl: "/me.png",
+  // Illustrated portraits; the homepage swaps between them with the color scheme.
+  portraits: {
+    light: "/portraits/light.webp",
+    dark: "/portraits/dark.webp",
+    blue: "/portraits/blue.webp",
+  },
+  githubUser: "saviii",
+  // Repos featured on the homepage GitHub tile, in order. Any owner works (orgs too).
+  // `description` overrides GitHub's when the repo doesn't have one.
+  featuredRepos: [
+    { repo: "meelni/meelni-prep", description: "AI voice agents that run PM mock interviews." },
+    { repo: "vexorlabs/beacon", description: "Chrome DevTools for AI agents." },
+    { repo: "saviii/savi-porfolio", description: "This site." },
+  ],
+  // Leave empty to hide the resume link in the footer.
+  resumeUrl: "/resume.pdf",
   tagline:
     "Embracing the unknown: a PM on a quest to build, learn, and discover the magic in tech and life (with a few dog walks along the way).",
   description:
@@ -64,12 +80,78 @@ export const SITE = {
     },
   },
 
-  // Chronological history for the About page.
+  // Work history, newest first. Mirrors the resume; drives /work and /about.
   experience: [
-    { company: "Yahoo Finance", title: "Senior Product Manager", period: "Dec 2024 – Now" },
-    { company: "SmartNews", title: "Senior Product Manager", period: "2022 – 2024" },
-    { company: "Medium", title: "Product Manager, Mobile Apps", period: "2019 – 2022" },
-    { company: "Evie Labs (acq. by Medium)", title: "Product Manager", period: "2016 – 2019" },
-    { company: "DirecTV", title: "Senior QA Engineer", period: "2013 – 2016" },
+    {
+      company: "Yahoo Finance",
+      title: "Principal Product Manager, AI",
+      period: "Dec 2024 – Present",
+      years: "2024 – now",
+      line: "Took AlphaSpace from zero to launch, and built LLM experiences across news and portfolios.",
+    },
+    {
+      company: "ODF27",
+      title: "Founder Fellow",
+      period: "Feb 2026 – May 2026",
+      years: "2026",
+      line: "Explored LLM evals and voice AI.",
+    },
+    {
+      company: "SmartNews",
+      title: "Senior PM, Mobile Apps & RecSys",
+      period: "Jun 2022 – Nov 2024",
+      years: "2022 – 2024",
+      line: "Launched AI-powered ranking and overhauled push notifications.",
+    },
+    {
+      company: "Medium",
+      title: "Product Manager, Mobile Apps",
+      period: "Jul 2019 – Mar 2022",
+      years: "2019 – 2022",
+      line: "Redesigned the iOS and Android apps and launched a new commenting experience.",
+    },
+    {
+      company: "Evie Labs",
+      title: "Product Manager · acquired by Medium",
+      period: "Nov 2016 – Jul 2019",
+      years: "2016 – 2019",
+      line: "Led product for Evie, the #1-rated Android launcher.",
+    },
+    {
+      company: "DirecTV",
+      title: "Senior QA Engineer",
+      period: "Jun 2013 – Oct 2016",
+      years: "2013 – 2016",
+      line: "Led QA strategy for NFL Sunday Ticket and March Madness.",
+    },
+  ],
+
+  // Side projects, shown under the work timeline.
+  projects: [
+    { name: "Meelni", href: "http://meelni.com", line: "AI voice agents that run PM mock interviews." },
+    { name: "Beacon", href: "https://github.com/vexorlabs/beacon", line: "Observability for autonomous AI agents." },
+  ],
+
+  talks: [
+    {
+      title: "How a news app decides what to push you",
+      where: "UC Berkeley",
+      date: "Nov 2023",
+      href: "",
+    },
+  ],
+
+  // Shown in the homepage notes tile under "Written about the work".
+  press: [
+    {
+      title: "Threaded responses",
+      outlet: "Medium Blog",
+      href: "https://blog.medium.com/take-conversations-deeper-with-threaded-responses-1d1ec6e475e3",
+    },
+    {
+      title: "A relational Medium on mobile",
+      outlet: "Medium Blog",
+      href: "https://blog.medium.com/a-relational-medium-on-mobile-1c9c2111301d",
+    },
   ],
 } as const;

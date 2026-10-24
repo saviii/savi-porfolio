@@ -20,7 +20,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
-        display: ["var(--font-display)", ...fontFamily.serif],
+        display: ["var(--font-sans)", ...fontFamily.sans],
         mono: ["var(--font-mono)", ...fontFamily.mono],
       },
       colors: {
@@ -57,13 +57,13 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Tile palette
-        butter: "#F4DE8A",
-        sage: "#CBD9BE",
-        sky: "#CADDEC",
-        lilac: "#DCD2EE",
-        tomato: "#E5532D",
-        ink: "#1E1B17",
+        // Legacy tile colors, now mapped onto the active color scheme
+        butter: "hsl(var(--card))",
+        sage: "hsl(var(--card))",
+        sky: "hsl(var(--card))",
+        lilac: "hsl(var(--card))",
+        tomato: "hsl(var(--accent))",
+        ink: "hsl(var(--foreground))",
       },
       borderRadius: {
         lg: "var(--radius)",

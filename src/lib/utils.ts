@@ -42,12 +42,3 @@ export function shortDate(date: string) {
     { month: "short", day: "numeric", year: "numeric" },
   );
 }
-
-export const TILE_COLORS = {
-  butter: "bg-butter",
-  sage: "bg-sage",
-  sky: "bg-sky",
-  lilac: "bg-lilac",
-  tomato: "bg-tomato text-card",
-  card: "bg-card",
-} as const;
